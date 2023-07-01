@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 
 from loguru import logger
 
-from .templates import MAKEFILE_TEMPLATE, CookiecutterSettings, FileTemplate
+from .templates import CookiecutterSettings, FileTemplate
 
 if TYPE_CHECKING:
     from .templates import Folder
@@ -54,7 +54,6 @@ class Cookiecutter:
         folder_path = path / folder.name
 
         folder_path.mkdir(parents=True, exist_ok=True)
-
 
         for subfolder in folder.subfolders:
             self.add_folder(folder_path, subfolder)

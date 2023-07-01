@@ -1,6 +1,6 @@
 from enum import Enum
 from pathlib import Path
-from typing import List, Optional
+from typing import List
 
 from pydantic import BaseModel, Field
 
@@ -40,8 +40,8 @@ class Folder(BaseModel):
     """
 
     name: str
-    subfolders: Optional[List["Folder"]] = Field(default_factory=list)
-    files: Optional[List[FileTemplate]] = Field(default_factory=list)
+    subfolders: List["Folder"] = Field(default_factory=list)
+    files: List[FileTemplate] = Field(default_factory=list)
 
 
 README_TEMPLATE = """
@@ -157,7 +157,7 @@ class CookiecutterSettings(BaseModel):
     name: str
     path: Path
     git: bool = True
-    template: Optional[Folder] = DEFAULTTEMPLATE
+    template: Folder = DEFAULTTEMPLATE
     lang: Languages = Languages.PYTHON
     report_type: ReportTypes = ReportTypes.MARKDOWN
     force: bool = False
