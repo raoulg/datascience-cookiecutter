@@ -23,6 +23,9 @@ lint = [
 	"mypy>=1.4.1",
 ]
 
+[tool.urls]
+GitHub = "https://github.com/raoulg/datascience-cookiecutter"
+
 [tool.pdm.scripts]
 cookiecutter = {call = "datascience_cookiecutter.cli:main", deps = ["click"]}
 
