@@ -1,5 +1,5 @@
 [project]
-name = "cookietest"
+name = "datascience-cookiecutter"
 version = "0.1.0"
 description = ""
 authors = [
