@@ -1,6 +1,6 @@
 [project]
 name = "datascience-cookiecutter"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = [
 	{name = "", email = ""},
@@ -30,11 +30,11 @@ lint = [
 	"mypy>=1.4.1",
 ]
 
-[tool.urls]
+[tool.pdm.urls]
 GitHub = "https://github.com/raoulg/datascience-cookiecutter"
 
 [tool.pdm.scripts]
-cookiecutter = {call = "datascience_cookiecutter.cli:main", deps = ["click"]}
+cookiecutter = {call = "datascience_cookiecutter.cli", deps = ["click"]}
 
 [build-system]
 requires = ["pdm-backend"]

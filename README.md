@@ -4,6 +4,7 @@
 <!-- [![PyPi version](https://badgen.net/pypi/v/mltrainer/)](https://pypi.org/project/mltrainer/) -->
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+```
 .
 ├── Makefile
 ├── README.md
@@ -25,3 +26,4 @@
 │   ├── __init__.py
 │   └── main.py
 └── tests
+```
