@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 
 from loguru import logger
 
-from .templates import CookiecutterSettings, FileTemplate
+from datascience_cookiecutter.templates import CookiecutterSettings, FileTemplate
 
 if TYPE_CHECKING:
     from .templates import Folder

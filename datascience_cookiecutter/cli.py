@@ -1,5 +1,5 @@
 import click
-from .cookiecutter import CookiecutterSettings, Cookiecutter
+from datascience_cookiecutter import CookiecutterSettings, Cookiecutter
 from pathlib import Path
 
 

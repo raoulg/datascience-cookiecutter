@@ -1,4 +1,4 @@
-from .folderbuilder import Cookiecutter, CookiecutterSettings
+from datascience_cookiecutter.folderbuilder import Cookiecutter, CookiecutterSettings
 
 __all__ = ["Cookiecutter", "CookiecutterSettings"]
 
