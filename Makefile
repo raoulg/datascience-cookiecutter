@@ -5,12 +5,12 @@ install:
 	pdm install
 
 test:
-	pdm run pytest
+	pdm run pytest -v
 
 lint:
-	pdm run flake8 cookietest
-	pdm run mypy cookietest
+	pdm run ruff datascience_cookiecutter
+	pdm run mypy --pretty datascience_cookiecutter
 
 format:
-	pdm run isort -v cookietest
-	pdm run black cookietest
+	pdm run isort -v datascience_cookiecutter
+	pdm run black datascience_cookiecutter
