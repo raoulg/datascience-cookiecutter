@@ -2,7 +2,8 @@ from enum import Enum
 from pathlib import Path
 from typing import List
 
-from pydantic import BaseModel, Field
+from loguru import logger
+from pydantic import BaseModel, Field, field_validator
 
 
 class Languages(Enum):
@@ -161,3 +162,10 @@ class CookiecutterSettings(BaseModel):
     lang: Languages = Languages.PYTHON
     report_type: ReportTypes = ReportTypes.MARKDOWN
     force: bool = False
+    configfolder: Path = Path.home() / ".config" / "cookiecutter"
+
+    @field_validator("configfolder")
+    def create_configfolder(cls, configfolder):
+        configfolder.mkdir(parents=True, exist_ok=True)
+        logger.info(f"Created config folder {configfolder}")
+        return configfolder
