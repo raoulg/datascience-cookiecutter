@@ -37,7 +37,7 @@ lint = [
 [project.scripts]
 cookiecutter = "datascience_cookiecutter.__main__:create_project"
 
-[tool.pdm.urls]
+[project.urls]
 GitHub = "https://github.com/raoulg/datascience-cookiecutter"
 
 [build-system]
