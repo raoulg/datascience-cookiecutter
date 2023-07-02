@@ -43,7 +43,7 @@ To create a new data science project using the Data Science Cookiecutter, follow
 4. profit 🎉
 
 ## 📁 Default Template
-```bash
+```markdown
 .
 ├── Makefile         <- Makefile for project automation
 ├── README.md        <- Project documentation and instructions
