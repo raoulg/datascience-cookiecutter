@@ -9,9 +9,11 @@
 - [Features](#-features)
 - [Installation](#️-installation)
 - [Basic Usage](#-basic-usage)
-- [Default Template](#default-template)
-- [Makefile](#makefile)
-- [PDM](#pdm)
+- [Default Template](#-default-template)
+- [Customizing Templates](#️-customizing-templates)
+- [Makefile](#️-makefile)
+- [PDM](#️-pdm)
+- [pytest](#-pytest)
 
 # 🍪 Data Science Cookiecutter
 The Data Science Cookiecutter 🍪 is an opinionated, yet configurable, Python project that provides a template for organizing and setting up data science projects. It uses the Cookiecutter project structure to create a standardized and reproducible project layout.
@@ -67,8 +69,41 @@ To create a new data science project using the Data Science Cookiecutter, follow
 └── tests            <- Folder for project tests
 ```
 
-### 🛠️ Makefile
-Makefile
+## 🛠️ Customizing Templates
+If you want to customize the default template used by `cookiecutter`, you can create a `templates.py` file in your `$HOME/.config/cookiecutter` directory. Follow these steps:
+
+1. Open a text editor and create a new file called `templates.py`.
+2. Import the necessary classes `Folder` and `FileTemplate` by adding the following lines to `templates.py`:
+
+```python
+from datascience_cookiecutter import Folder, FileTemplate
+```
+
+Define your custom template using the Folder and FileTemplate classes. Here's a minimal example:
+```python
+MYTEMPLATE = Folder(
+    name="{{name}}",
+    subfolders=[
+        Folder(name="src", files=[FileTemplate(filename="main.py", content="print('Hello, world!')")]),
+        Folder(name="data"),
+        Folder(name="docs"),
+    ],
+    files=[
+        FileTemplate(filename="README.md", content="# My {{name}}"),
+    ],
+)
+```
+
+Occurences of `{{name}}` will be replaced by the project name as provided
+with `cookiecutter myprojectname`. To use your custom template, simply run the
+cookiecutter command with the `--template` option followed by the name of
+your custom template. For example:
+```bash
+$ cookiecutter myproject --template=MYTEMPLATE
+```
+Enjoy customizing your templates! ✨🧙‍♂️
+
+## 🛠️ Makefile
 A Makefile is a file containing a set of instructions, known as targets, used to automate tasks in software development. It provides a convenient way to define and organize common commands for building, testing, and managing a project.
 
 In the provided Makefile, you have the following targets:
@@ -84,7 +119,7 @@ To use the Makefile, open a terminal or command prompt, navigate to your project
 make install
 ```
 
-### ❤️ PDM
+## ❤️ PDM
 [PDM](https://pdm.fming.dev/latest/) is a Python package manager and build tool that provides an alternative to other package managers like pip or Poetry. It aims to simplify and enhance the management of project dependencies, virtual environments, and building distributions. Follow the link to install it. If you dont want to use it, you can customize the template to create your own Makefile and pyproject.toml.
 
 The template (and PDM) follow the [PEP 621](https://peps.python.org/pep-0621/) standard for project metadata to use a pyproject.toml file instead of setup.py. This file contains the project metadata and dependencies. It also allows you to specify details like the Python version and the project entry point.
