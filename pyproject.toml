@@ -1,6 +1,6 @@
 [project]
 name = "datascience_cookiecutter"
-version = "0.3"
+version = "0.3.1"
 description = ""
 authors = [
 	{name = "", email = ""},
