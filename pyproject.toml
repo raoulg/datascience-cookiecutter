@@ -1,6 +1,6 @@
 [project]
-name = "datascience-cookiecutter"
-version = "0.1.1"
+name = "datascience_cookiecutter"
+version = "0.3"
 description = ""
 authors = [
 	{name = "", email = ""},
@@ -15,9 +15,13 @@ readme = "README.md"
 license = {text = "MIT"}
 
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python",
 	"Environment :: Console",
+    "Topic :: Software Development",
     "Typing :: Typed",
 ]
 
@@ -30,12 +34,19 @@ lint = [
 	"mypy>=1.4.1",
 ]
 
+[project.scripts]
+cookiecutter = "datascience_cookiecutter.__main__:create_project"
+
 [tool.pdm.urls]
 GitHub = "https://github.com/raoulg/datascience-cookiecutter"
-
-[tool.pdm.scripts]
-cookiecutter = {call = "datascience_cookiecutter.cli", deps = ["click"]}
 
 [build-system]
 requires = ["pdm-backend"]
 build-backend = "pdm.backend"
+
+[tool.mypy]
+ignore_missing_imports = true
+strict_optional = true
+warn_unreachable = true
+pretty = true
+show_error_codes = true
