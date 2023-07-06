@@ -33,7 +33,7 @@ Data science projects often require a well-structured project layout to ensure r
 The Data Science Cookiecutter is on [pypi](https://pypi.org/project/datascience-cookiecutter/) and can be installed using `pip`, `poetry`, `pdm` or `conda`.
 
 ```bash
-pdm install datascience-cookiecutter
+pdm add datascience-cookiecutter
 ```
 
 # 🚀 Basic Usage
