@@ -79,7 +79,7 @@ test:
 \tpdm run pytest
 
 lint:
-\tpdm run flake8 {{name}}
+\tpdm run ruff {{name}}
 \tpdm run mypy {{name}}
 
 format:
@@ -97,15 +97,15 @@ authors = [
 ]
 dependencies = [
 ]
-requires-python = ">=3.7"
+requires-python = ">=3.9"
 readme = "README.md"
 license = {text = "MIT"}
 
 [project.optional-dependencies]
 lint = [
-\t"ruff>=0.0.275",
-\t"black>=23.3.0",
-\t"isort>=5.11.5",
+\t"ruff>=0.0.278",
+\t"black>=23.7.0",
+\t"isort>=5.12.0",
 \t"mypy>=1.4.1",
 ]
 
