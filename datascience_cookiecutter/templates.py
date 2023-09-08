@@ -101,7 +101,7 @@ requires-python = ">=3.9"
 readme = "README.md"
 license = {text = "MIT"}
 
-[project.optional-dependencies]
+[tool.pdm.dev-dependencies]
 lint = [
 \t"ruff>=0.0.278",
 \t"black>=23.7.0",
