@@ -15,7 +15,7 @@ def create_project(projectname: str, template: str) -> None:
     settings = CookiecutterSettings(
         name=projectname,
         path=Path("."),
-        git=True,
+        git=False,
     )
 
     # check if settings.configfolder has a templates.py file
@@ -25,6 +25,7 @@ def create_project(projectname: str, template: str) -> None:
         templates_file = settings.configfolder / "templates.py"
 
         if templates_file.exists() and template != "default":
+            logger.info(f"Using config folder {settings.configfolder}")
             # Load the module from templates.py
             spec = importlib.util.spec_from_file_location("templates", templates_file)  # type: ignore
             templates_module = importlib.util.module_from_spec(spec)  # type: ignore

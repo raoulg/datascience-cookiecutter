@@ -113,7 +113,12 @@ PYTHONFILES = [
 DEFAULTTEMPLATE = Folder(
     name="${name}",
     subfolders=[
-        Folder(name="${src}", files=PYTHONFILES),
+        Folder(
+            name="src",
+            subfolders=[
+                Folder(name="${src}", files=PYTHONFILES),
+            ],
+        ),
         Folder(
             name="dev",
             subfolders=[
@@ -136,6 +141,8 @@ DEFAULTTEMPLATE = Folder(
     ],
     files=[
         FileTemplate(filename="Makefile", content=MAKEFILE_TEMPLATE),
+        FileTemplate(filename="README.md", content="# your readme"),
+        FileTemplate(filename="pyproject.toml", content=PYPROJECT_TEMPLATE),
     ],
 )
 

@@ -110,7 +110,12 @@ class Cookiecutter:
         """
         path = self.settings.path
         template = self.personalize_template()
-        root = path / template.name
+        name_template = Template(template.name)
+        project_name = name_template.safe_substitute(
+            name=self.settings.name, src=self.settings.name.replace("-", "_")
+        )
+
+        root = path / project_name
 
         if not self.settings.force:
             self.check_path(root)
@@ -120,8 +125,8 @@ class Cookiecutter:
 
         self.make_folders(path, template)
 
-        if self.settings.git:
-            gitpath = path / template.name
-            logger.info(f"Initializing git repository in {gitpath}")
-            subprocess.check_call(["git", "init", str(gitpath)])
-            self.git_add_commit(str(gitpath), "template folders")
+        # if self.settings.git:
+        #     gitpath = path / template.name
+        #     logger.info(f"Initializing git repository in {gitpath}")
+        #     subprocess.check_call(["git", "init", str(gitpath)])
+        #     self.git_add_commit(str(gitpath), "template folders")
