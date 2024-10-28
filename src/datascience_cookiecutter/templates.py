@@ -47,44 +47,40 @@ class Folder(BaseModel):
 
 README_TEMPLATE = """
 .
-├── Makefile
-├── README.md
-├── data
-│   ├── final
+├── data/
 │   ├── processed
 │   ├── raw
-│   └── sim
-├── dev
+├── dev/
 |    ├── notebooks
 │    └── scripts
-├── docs
-├── pyproject.toml
-├── references
-├── reports
-│   ├── img
-│   └── report.md
-├── test
+├── src/
 │   ├── __init__.py
 │   └── main.py
-└── tests
+├── tests/
+│   ├── __init__.py
+│   └── main.py
+├── references/
+├── Makefile
+├── README.md
+├── pyproject.toml
 """
 
 MAKEFILE_TEMPLATE = """
 .PHONY: install test lint format
 
 install:
-\tpdm install
+\trye sync
 
 test:
-\tpdm run pytest
+\tpytest
 
 lint:
-\tpdm run ruff {{name}}
-\tpdm run mypy {{name}}
+\truff check src --fix
+\tpyright src
 
 format:
-\tpdm run isort -v {{name}}
-\tpdm run black {{name}}
+\tisort src
+\trye fmt
 """
 
 PYPROJECT_TEMPLATE = """
@@ -93,41 +89,36 @@ name = "{{name}}"
 version = "0.1.0"
 description = ""
 authors = [
-\t{name = "", email = ""},
+\t{name = "{{author}}", email = "{{email}}"},
 ]
 dependencies = [
 ]
-requires-python = ">=3.9"
+requires-python = ">=3.11"
 readme = "README.md"
 license = {text = "MIT"}
 
-[tool.pdm.dev-dependencies]
-lint = [
-\t"ruff>=0.0.278",
-\t"black>=23.7.0",
-\t"isort>=5.12.0",
-\t"mypy>=1.4.1",
-]
-
 [build-system]
-requires = ["pdm-backend"]
-build-backend = "pdm.backend"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/{{name}}"]
 """
 
 PYTHONFILES = [
     FileTemplate(filename="__init__.py", content=""),
-    FileTemplate(filename="main.py", content=""),
+    FileTemplate(filename="main.py", content="def hi():\n\tprint('hello!')"),
 ]
 
 DEFAULTTEMPLATE = Folder(
-    name="{{name}}",
+    name="${name}",
     subfolders=[
-        Folder(name="{{src}}", files=PYTHONFILES),
+        Folder(name="${src}", files=PYTHONFILES),
         Folder(
             name="dev",
             subfolders=[
                 Folder(
-                    name="scripts", files=[FileTemplate(filename="main.py", content="")]
+                    name="scripts", files=[FileTemplate(filename="dev.py", content="")]
                 ),
                 Folder(name="notebooks"),
             ],
@@ -137,19 +128,14 @@ DEFAULTTEMPLATE = Folder(
             subfolders=[
                 Folder(name="raw"),
                 Folder(name="processed"),
-                Folder(name="sim"),
-                Folder(name="final"),
             ],
         ),
-        Folder(name="docs"),
         Folder(name="references"),
         Folder(name="reports", subfolders=[Folder(name="img")]),
         Folder(name="tests"),
     ],
     files=[
-        FileTemplate(filename="README.md", content=README_TEMPLATE),
         FileTemplate(filename="Makefile", content=MAKEFILE_TEMPLATE),
-        FileTemplate(filename="pyproject.toml", content=PYPROJECT_TEMPLATE),
     ],
 )
 
@@ -164,8 +150,9 @@ class CookiecutterSettings(BaseModel):
     force: bool = False
     configfolder: Path = Path.home() / ".config" / "cookiecutter"
 
-    @field_validator("configfolder")
-    def create_configfolder(cls, configfolder):
-        configfolder.mkdir(parents=True, exist_ok=True)
-        logger.info(f"Created config folder {configfolder}")
+    @field_validator("configfolder", mode="before")
+    def create_configfolder(cls, configfolder: Path) -> Path:
+        if not configfolder.exists():
+            configfolder.mkdir(parents=True)
+            logger.info(f"Created config folder {configfolder}")
         return configfolder

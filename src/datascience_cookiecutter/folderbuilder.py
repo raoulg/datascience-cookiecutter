@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import subprocess
 from pathlib import Path
+from string import Template
 from typing import TYPE_CHECKING
 
 from loguru import logger
@@ -9,7 +10,7 @@ from loguru import logger
 from datascience_cookiecutter.templates import CookiecutterSettings, FileTemplate
 
 if TYPE_CHECKING:
-    from .templates import Folder
+    from datascience_cookiecutter.templates import Folder
 
 
 class Cookiecutter:
@@ -51,7 +52,12 @@ class Cookiecutter:
             path (Path): The root path to add the folder to.
             folder (Folder): The folder to add.
         """
-        folder_path = path / folder.name
+        folder_name_template = Template(folder.name)
+        folder_name = folder_name_template.safe_substitute(
+            name=self.settings.name, src=self.settings.name.replace("-", "_")
+        )
+
+        folder_path = path / folder_name
 
         folder_path.mkdir(parents=True, exist_ok=True)
 
@@ -59,8 +65,12 @@ class Cookiecutter:
             self.add_folder(folder_path, subfolder)
 
         for file in folder.files:
+            content_template = Template(file.content)
+            content = content_template.safe_substitute(
+                name=self.settings.name, src=self.settings.name.replace("-", "_")
+            )
             with open(folder_path / file.filename, "w") as f:
-                f.write(file.content)
+                f.write(content)
 
         if not folder.files and not folder.subfolders:
             with open(folder_path / ".gitkeep", "w") as f:
@@ -79,19 +89,13 @@ class Cookiecutter:
         subprocess.check_call(["git", "-C", repo, "commit", "-m", msg])
 
     def personalize_template(self) -> Folder:
+        """
+        Returns a copy of the template with personalized values.
+        """
         template = self.settings.template
 
-        # Add the makefile_template to the files list of the DEFAULT_TEMPLATE
-        name = self.settings.name
-        template.name = template.name.replace("{{name}}", name)
-
-        for tfile in template.files:
-            tfile.content = tfile.content.replace("{{name}}", name)
-
-        rootname = name.replace("-", "_")
+        # Add report file if needed
         for subfolder in template.subfolders:
-            if subfolder.name == "{{src}}":
-                subfolder.name = rootname
             if subfolder.name == "reports":
                 reportfile = FileTemplate(
                     filename=f"report.{self.settings.report_type.value}", content=""
