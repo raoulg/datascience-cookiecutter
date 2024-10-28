@@ -1,9 +1,9 @@
 [project]
 name = "datascience_cookiecutter"
-version = "0.3.5"
+version = "0.4"
 description = ""
 authors = [
-	{name = "", email = ""},
+	{name = "Raoul Grouls", email = "Raoul.Grouls@han.nl"},
 ]
 dependencies = [
     "pydantic>=2.0.2",
@@ -29,9 +29,7 @@ classifiers = [
 lint = [
     "pytest>=7.4.0",
 	"ruff>=0.0.278",
-	"black>=23.7.0",
 	"isort>=5.12.0",
-	"mypy>=1.4.1",
 ]
 
 [project.scripts]
@@ -41,12 +39,13 @@ cookiecutter = "datascience_cookiecutter.__main__:create_project"
 GitHub = "https://github.com/raoulg/datascience-cookiecutter"
 
 [build-system]
-requires = ["pdm-backend"]
-build-backend = "pdm.backend"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[tool.mypy]
-ignore_missing_imports = true
-strict_optional = true
-warn_unreachable = true
-pretty = true
-show_error_codes = true
+[tool]
+rye = { dev-dependencies = [
+    "pyright>=1.1.386",
+] }
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/datascience_cookiecutter"]

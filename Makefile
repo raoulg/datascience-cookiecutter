@@ -2,15 +2,15 @@
 .PHONY: install test lint format
 
 install:
-	pdm install
+	rye sync
 
 test:
-	pdm run pytest -v
+	pytest -v
 
 lint:
-	pdm run ruff datascience_cookiecutter
-	pdm run mypy --pretty datascience_cookiecutter
+	ruff check src --fix
+	pyright src
 
 format:
-	pdm run isort -v datascience_cookiecutter
-	pdm run black datascience_cookiecutter
+	isort src
+	rye fmt
