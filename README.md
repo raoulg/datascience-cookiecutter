@@ -46,27 +46,22 @@ To create a new data science project using the Data Science Cookiecutter, follow
 
 ## 📁 Default Template
 ```markdown
-.
-├── Makefile         <- Makefile for project automation
-├── README.md        <- Project documentation and instructions
-├── pyproject.toml   <- Configuration file for dependencies and project metadata
-├── data             <- Folder to store data
-│   ├── final        <- Folder for final processed data
-│   ├── processed    <- Folder for intermediate processed data
-│   ├── raw          <- Folder for raw data
-│   └── sim          <- Folder for simulated data
-├── dev              <- Folder for development-related files
-│   ├── notebooks    <- Folder for Jupyter notebooks
-│   └── scripts      <- Folder for development scripts
-├── docs             <- Folder for project documentation
-├── myproject        <- Placeholder folder for the project itself (replaced with your project name)
-│   ├── __init__.py  <- Python package initialization file
-│   └── main.py      <- Main Python script for the project
-├── references       <- Folder for reference materials
-├── reports          <- Folder for project reports
-│   ├── img          <- Folder for images and visualizations used in reports
-│   └── report.md    <- Sample report file (Markdown format)
-└── tests            <- Folder for project tests
+├── data/
+│   ├── processed
+│   ├── raw
+├── dev/
+|    ├── notebooks
+│    └── scripts
+├── src/
+│   ├── __init__.py
+│   └── main.py
+├── tests/
+│   ├── __init__.py
+│   └── main.py
+├── references/
+├── Makefile
+├── README.md
+├── pyproject.toml
 ```
 
 ## 🛠️ Customizing Templates
@@ -118,11 +113,6 @@ To use the Makefile, open a terminal or command prompt, navigate to your project
 ```bash
 make install
 ```
-
-## ❤️ PDM
-[PDM](https://pdm.fming.dev/latest/) is a Python package manager and build tool that provides an alternative to other package managers like pip or Poetry. It aims to simplify and enhance the management of project dependencies, virtual environments, and building distributions. Follow the link to install it. If you dont want to use it, you can customize the template to create your own Makefile and pyproject.toml.
-
-The template (and PDM) follow the [PEP 621](https://peps.python.org/pep-0621/) standard for project metadata to use a pyproject.toml file instead of setup.py. This file contains the project metadata and dependencies. It also allows you to specify details like the Python version and the project entry point.
 
 ## 🔬 pytest
 Pytest is a Python testing framework that allows you to write simple and scalable tests with a clean and expressive syntax. It provides powerful features like fixtures, test discovery, and test selection.
